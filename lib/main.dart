@@ -13,7 +13,7 @@ class ChatApp extends StatelessWidget {
     return MaterialApp(
       title: "Flutter Chat App!!!",
       theme: ThemeData(primarySwatch: Colors.yellow),
-      home: Chatpage(),
+      home: const ChatPage(),
     );
   }
 }
