@@ -33,6 +33,12 @@ class ChatPage extends StatefulWidget {
     });
   }
 
+   onMessageSent(ChatMessageEntity entity) {
+    _messages.add(entity);
+    setState(() {});
+  }
+
+
   @override
   void initState() {
     _loadInitialMessages();
@@ -73,7 +79,9 @@ class ChatPage extends StatefulWidget {
                       entity: _messages[index]);
                 }),
           ),
-          ChatInput(),
+          ChatInput(
+            onSubmit: onMessageSent,
+          ),
         ],
       ),
     );
