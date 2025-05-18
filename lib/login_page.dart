@@ -5,6 +5,7 @@ import 'package:chat_app/utils/spaces.dart';
 import 'package:chat_app/utils/textfield_styles.dart';
 import 'package:chat_app/widgets/login_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -16,8 +17,8 @@ class LoginPage extends StatelessWidget {
       print(userNameController.text);
       print(passwordController.text);
 
-      Navigator.pushReplacementNamed(context,'/chat', 
-      arguments: '${userNameController.text}');
+      Navigator.pushReplacementNamed(context, '/chat',
+          arguments: '${userNameController.text}');
       print('login! successful!');
     } else {
       print('not successful');
@@ -26,6 +27,8 @@ class LoginPage extends StatelessWidget {
 
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
+
+  final _mainUrl = "https://poojabhaumik.com";
 
   @override
   Widget build(BuildContext context) {
@@ -75,15 +78,12 @@ class LoginPage extends StatelessWidget {
                         return null;
                       },
                       controller: userNameController,
-                    
                     ),
                     verticalSpacing(24),
-                    LoginTextField( 
+                    LoginTextField(
                       hasAsterisks: true,
-                      controller: passwordController, 
+                      controller: passwordController,
                       hintText: 'Enter your password',
-                      
-                    
                     ),
                   ],
                 ),
@@ -97,21 +97,18 @@ class LoginPage extends StatelessWidget {
                     style:
                         TextStyle(fontSize: 24, fontWeight: FontWeight.w300)),
               ),
-              InkWell(
-                splashColor: Colors.red,
-                onDoubleTap: () {
-                  print('double tapped!');
-                },
-                onLongPress: () {
-                  print('onLongpress!');
-                },
-                onTap: () {
-                  print('Link clicked!');
+              GestureDetector(
+                onTap: () async {
+                  print('Link Clicked!');
+                  final Uri url = Uri.parse(_mainUrl);
+                  if (!await launchUrl(url)) {
+                    throw 'Could not launch this!';
+                  }
                 },
                 child: Column(
                   children: [
                     Text('Find us on'),
-                    Text('https://google.com'),
+                    Text(_mainUrl),
                   ],
                 ),
               )
