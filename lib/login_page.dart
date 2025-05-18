@@ -13,11 +13,8 @@ class LoginPage extends StatelessWidget {
       print(userNameController.text);
       print(passwordController.text);
 
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => ChatPage(
-                username: userNameController.text,)));
+      Navigator.pushNamed(context,'/chat', 
+      arguments: '${userNameController.text}');
       print('login! successful!');
     } else {
       print('not successful');
