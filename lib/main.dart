@@ -17,7 +17,7 @@ class ChatApp extends StatelessWidget {
       // theme: ThemeData(primarySwatch: Colors.yellow),
       // home: CounterStateful(buttonColor:Colors.blue),
       theme: ThemeData(primarySwatch: Colors.deepPurple),
-      home: LoginPage(),
+      home: const ChatPage(),
     );
   }
 }
