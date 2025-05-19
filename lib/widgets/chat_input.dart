@@ -1,16 +1,17 @@
+import 'package:chat_app/widgets/picker_body.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/models/chat_message_entity.dart';
 
 class ChatInput extends StatelessWidget {
   ChatInput({Key? key, required this.onSubmit}) : super(key: key);
-   final Function(ChatMessageEntity) onSubmit;
+  final Function(ChatMessageEntity) onSubmit;
 
   final chatMessageController = TextEditingController();
 
   void onSendButtonPressed() {
     print('ChatMessage: ${chatMessageController.text}');
 
-     final newChatMessage = ChatMessageEntity(
+    final newChatMessage = ChatMessageEntity(
         text: chatMessageController.text,
         id: "244",
         createdAt: DateTime.now().millisecondsSinceEpoch,
@@ -27,7 +28,13 @@ class ChatInput extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showModalBottomSheet(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return NetworkImagePickerBody();
+                  });
+            },
             icon: Icon(
               Icons.add,
               color: Colors.white,
@@ -35,13 +42,13 @@ class ChatInput extends StatelessWidget {
           ),
           Expanded(
               child: TextField(
-                keyboardType: TextInputType.multiline,
-                maxLines: 5,
-                minLines: 1,
-                controller: chatMessageController,
-                textCapitalization: TextCapitalization.sentences,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
+            keyboardType: TextInputType.multiline,
+            maxLines: 5,
+            minLines: 1,
+            controller: chatMessageController,
+            textCapitalization: TextCapitalization.sentences,
+            style: TextStyle(color: Colors.white),
+            decoration: InputDecoration(
                 hintText: "Type your message",
                 hintStyle: TextStyle(color: Colors.blueGrey),
                 border: InputBorder.none),
