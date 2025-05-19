@@ -15,6 +15,7 @@ class ChatApp extends StatelessWidget {
       // theme: ThemeData(primarySwatch: Colors.yellow),
       // home: CounterStateful(buttonColor:Colors.blue),
       theme: ThemeData(
+        canvasColor: Colors.transparent,
         primarySwatch: Colors.deepPurple, 
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.blue, foregroundColor: Colors.black)),
