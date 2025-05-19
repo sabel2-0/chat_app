@@ -6,24 +6,20 @@ part 'image_model.g.dart';
 
 class PixelfordImage {
   String id;
-  String filename;
-  String? title;
+  String author;
+  String url;
 
-  @JsonKey(name: 'url_full_size')
+  @JsonKey(name: 'download_url')
   String urlFullSize;
 
-  @JsonKey(name: 'url_small_size')
-  String urlSmallSize;
-
   PixelfordImage(
-      {this.title,
-      required this.filename,
-      required this.urlSmallSize,
+      {required this.author,
+      required this.url,
       required this.id,
       required this.urlFullSize});
 
-       factory PixelfordImage.fromJson(Map<String, dynamic> json) =>
-      _$PixelformImageFromJson(json);
+  factory PixelfordImage.fromJson(Map<String, dynamic> json) =>
+      _$PixelfordImageFromJson(json);
 
-  Map<String, dynamic> toJson() => _$PixelformImageToJson(this);
+  Map<String, dynamic> toJson() => _$PixelfordImageToJson(this);
 }
