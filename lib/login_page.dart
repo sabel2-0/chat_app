@@ -1,10 +1,12 @@
 // import 'dart:js';
 
 import 'package:chat_app/chat_page.dart';
+import 'package:chat_app/services/auth_service.dart';
 import 'package:chat_app/utils/spaces.dart';
 import 'package:chat_app/utils/textfield_styles.dart';
 import 'package:chat_app/widgets/login_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:social_media_buttons/social_media_buttons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -13,10 +15,12 @@ class LoginPage extends StatelessWidget {
 
   final _formkey = GlobalKey<FormState>();
 
-  void loginUser(context) {
+  Future<void> loginUser(BuildContext context) async {
     if (_formkey.currentState != null && _formkey.currentState!.validate()) {
       print(userNameController.text);
       print(passwordController.text);
+
+      await context.read<AuthService>().loginUser(userNameController.text);
 
       Navigator.pushReplacementNamed(context, '/chat',
           arguments: '${userNameController.text}');
@@ -59,18 +63,17 @@ class LoginPage extends StatelessWidget {
                     fontSize: 20,
                     color: Colors.blueGrey),
               ),
-                verticalSpacing(24),
-                 Container(
+              verticalSpacing(24),
+              Container(
                 height: 200,
                 width: MediaQuery.of(context).size.width,
-                decoration: 
-                    BoxDecoration(    
-                      image: DecorationImage(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
                         fit: BoxFit.fitWidth,
                         image: AssetImage('assets/illustration.png')),
-                      borderRadius: BorderRadius.circular(24)),
+                    borderRadius: BorderRadius.circular(24)),
               ),
-                verticalSpacing(24),
+              verticalSpacing(24),
               Form(
                 key: _formkey,
                 child: Column(
@@ -100,8 +103,8 @@ class LoginPage extends StatelessWidget {
               ),
               verticalSpacing(24),
               ElevatedButton(
-                onPressed: () {
-                  loginUser(context);
+                onPressed: () async {
+                 await loginUser(context);
                 },
                 child: Text('Login',
                     style:
@@ -122,20 +125,19 @@ class LoginPage extends StatelessWidget {
                   ],
                 ),
               ),
-               Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SocialMediaButton.facebook(
-                      size: 20,
-                      color: Colors.blue,
-                      url: "https://www.facebook.com/share/1BPmT72qMA/",
-                    ),
-                    SocialMediaButton.linkedin(
-                      url:
-                          "https://www.linkedin.com/in/alvic-caranzo-b724a4170/",
-                    )
-                  ],
-                )
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SocialMediaButton.facebook(
+                    size: 20,
+                    color: Colors.blue,
+                    url: "https://www.facebook.com/share/1BPmT72qMA/",
+                  ),
+                  SocialMediaButton.linkedin(
+                    url: "https://www.linkedin.com/in/alvic-caranzo-b724a4170/",
+                  )
+                ],
+              )
             ],
           ),
         ),

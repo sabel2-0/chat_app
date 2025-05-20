@@ -41,18 +41,15 @@ class _ChatPageState extends State<ChatPage> {
     setState(() {});
   }
 
-
-
   @override
   void initState() {
     _loadInitialMessages();
-    
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-   
     final username = ModalRoute.of(context)!.settings.arguments as String;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -65,6 +62,7 @@ class _ChatPageState extends State<ChatPage> {
         actions: [
           IconButton(
               onPressed: () {
+                context.read<AuthService>().logoutUser();
                 Navigator.pushReplacementNamed(context, '/');
                 print('Icon pressed!');
               },
@@ -73,14 +71,13 @@ class _ChatPageState extends State<ChatPage> {
       ),
       body: Column(
         children: [
-          
           Expanded(
             child: ListView.builder(
                 itemCount: _messages.length,
                 itemBuilder: (context, index) {
                   return ChatBubble(
-                      alignment: _messages[index].author.userName == 
-                      context.read<AuthService>().getUserName()
+                      alignment: _messages[index].author.userName ==
+                              context.read<AuthService>().getUserName()
                           ? Alignment.centerRight
                           : Alignment.centerLeft,
                       entity: _messages[index]);
