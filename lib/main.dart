@@ -5,9 +5,12 @@ import 'package:chat_app/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() {
-  runApp(Provider(create: (BuildContext context) => AuthService(), 
-  child: ChatApp(),
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AuthService.init();
+  runApp(Provider(
+    create: (BuildContext context) => AuthService(),
+    child: ChatApp(),
   ));
 }
 
@@ -19,13 +22,12 @@ class ChatApp extends StatelessWidget {
       // theme: ThemeData(primarySwatch: Colors.yellow),
       // home: CounterStateful(buttonColor:Colors.blue),
       theme: ThemeData(
-        canvasColor: Colors.transparent,
-        primarySwatch: Colors.deepPurple, 
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.blue, foregroundColor: Colors.black)),
+          canvasColor: Colors.transparent,
+          primarySwatch: Colors.deepPurple,
+          appBarTheme: AppBarTheme(
+              backgroundColor: Colors.blue, foregroundColor: Colors.black)),
       home: LoginPage(),
       routes: {'/chat': (context) => ChatPage()},
     );
   }
 }
-
